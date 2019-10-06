@@ -1,0 +1,58 @@
+---
+
+- name: Install node_exporter
+  block:
+    - name: Create temporary directory
+      tempfile:
+        state: directory
+        prefix: ansible-node-exp_
+      register: tmpdir
+      changed_when: false
+      check_mode: false
+
+    - name: Download node_exporter from Github and extract files
+      unarchive:
+        src: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exp_version }}/node_exporter-{{ node_exp_version }}.linux-amd64.tar.gz"
+        dest: "{{ tmpdir.path }}"
+        remote_src: true
+        extra_opts:
+          - "--strip-components=1"
+      changed_when: false
+      check_mode: false
+
+    - name: Send binary to /usr/sbin
+      copy:
+        src: "{{ tmpdir.path }}/node_exporter"
+        dest: /usr/sbin/node_exporter
+        remote_src: true
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Install systemd unit file
+      template:
+        src: node_exporter.service.j2
+        dest: /etc/systemd/system/node_exporter.service
+        owner: root
+        group: root
+        mode: 0644
+      notify: restart node_exporter
+
+    - name: Daemon reload
+      systemd:
+        daemon_reload: true
+      changed_when: false
+
+    - name: Start and enable node_exporter
+      service:
+        name: node_exporter
+        state: started
+        enabled: true
+  always:
+    - name: Clean up tmpdir
+      file:
+        path: "{{ tmpdir.path }}"
+        state: absent
+      changed_when: false
+      check_mode: false
+      when: tmpdir is defined

@@ -1,0 +1,20 @@
+[Unit]
+Description=Node Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Environment="OPTIONS=--log.level=\"{{ node_exp_loglevel }}\" \
+             --web.listen-address=\":{{ node_exp_port }}\" \
+             --web.telemetry-path=\"{{ node_exp_webpath }}\" \
+             {{ node_exp_disable_exporter_metrics | bool | ternary('--web.disable-exporter-metrics', '') }} \
+             {{ node_exp_exclude_collectors | map('regex_replace', '^(.*)$', '--no-collector.\\1') | join(' ') }} \
+             {{ node_exp_include_collectors | map('regex_replace', '^(.*)$', '--collector.\\1') | join(' ') }}"
+ExecStart=/usr/sbin/node_exporter $OPTIONS
+User=root
+Group=root
+Type=simple
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
