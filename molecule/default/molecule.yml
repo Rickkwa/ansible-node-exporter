@@ -1,0 +1,14 @@
+---
+
+scenario:
+  test_sequence:
+    - lint
+    - syntax
+  driver:
+    name: docker
+  lint:
+    name: yamllint
+  provisioner:
+    name: ansible
+    lint:
+      name: ansible-lint
