@@ -1,0 +1,17 @@
+---
+
+galaxy_info:
+  author: Ricky Kwan
+  description: "Install the Prometheus node_exporter, managed by systemd."
+  min_ansible_version: 2.5
+  category:
+    - system
+  platforms:
+    - name: EL
+      versions:
+        - 7
+  dependencies: []
+  galaxy_tags:
+    - prometheus
+    - metrics
+    - monitoring
