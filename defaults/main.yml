@@ -1,0 +1,11 @@
+---
+
+node_exp_version: 0.18.1
+
+node_exp_loglevel: info
+node_exp_port: 9100
+node_exp_webpath: /metrics
+node_exp_disable_exporter_metrics: true
+
+node_exp_exclude_collectors: []
+node_exp_include_collectors: []
