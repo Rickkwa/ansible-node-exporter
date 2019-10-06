@@ -3,6 +3,7 @@
 galaxy_info:
   author: Ricky Kwan
   description: "Install the Prometheus node_exporter, managed by systemd."
+  role_name: "node_exporter"
   min_ansible_version: 2.5
   category:
     - system
