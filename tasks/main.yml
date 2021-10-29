@@ -12,7 +12,7 @@
 
     - name: Download node_exporter from Github and extract files
       unarchive:
-        src: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exp_version }}/node_exporter-{{ node_exp_version }}.linux-amd64.tar.gz"
+        src: "{{ node_exp_download_url }}"
         dest: "{{ tmpdir.path }}"
         remote_src: true
         extra_opts:
@@ -28,6 +28,7 @@
         owner: root
         group: root
         mode: 0755
+      notify: restart node_exporter
 
     - name: Install systemd unit file
       template:
