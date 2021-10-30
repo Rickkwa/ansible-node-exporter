@@ -1,0 +1,21 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  vars:
+    port: 9100
+  tasks:
+  - name: Hit metrics endpoint
+    uri:
+      url: "http://localhost:{{ port }}/metrics"
+      method: GET
+      status_code: 200
+      return_content: true
+    register: result
+
+  - name: Assert results
+    assert:
+      that:
+        - '"node_exporter_build_info" in result.content'
