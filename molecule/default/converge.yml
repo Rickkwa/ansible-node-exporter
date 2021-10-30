@@ -4,4 +4,4 @@
   tasks:
     - name: "Include node-exporter"
       include_role:
-        name: "node-exporter"
+        name: "ansible-node-exporter"

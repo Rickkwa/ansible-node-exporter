@@ -7,6 +7,9 @@ jobs:
     strategy:
       fail-fast: false
       max-parallel: 4
+
+    env:
+      ANSIBLE_FORCE_COLOR: true
   
     steps:
       - uses: actions/checkout@v2
@@ -23,7 +26,6 @@ jobs:
       - name: Show versions
         run: |
           python --version
-          pip --version
           docker --version
           ansible --version
       - name: Test with molecule
