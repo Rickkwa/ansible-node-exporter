@@ -13,6 +13,8 @@ galaxy_info:
     - name: EL
       versions:
         - 7
+        - 8
+        - 9
   dependencies: []
   galaxy_tags:
     - prometheus
