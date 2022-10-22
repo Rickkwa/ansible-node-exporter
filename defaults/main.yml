@@ -1,6 +1,6 @@
 ---
 
-node_exp_version: 1.2.2
+node_exp_version: 1.4.0
 
 node_exp_arch_mapping:
   x86_64: "amd64"
@@ -9,6 +9,7 @@ node_exp_arch: "{{ node_exp_arch_mapping[ansible_architecture] }}"
 node_exp_download_url: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exp_version }}/node_exporter-{{ node_exp_version }}.linux-{{ node_exp_arch }}.tar.gz"
 
 node_exp_loglevel: info
+node_exp_address: 127.0.0.1
 node_exp_port: 9100
 node_exp_webpath: /metrics
 node_exp_disable_exporter_metrics: true

@@ -5,7 +5,7 @@ After=network-online.target
 
 [Service]
 Environment="OPTIONS=--log.level=\"{{ node_exp_loglevel }}\" \
-             --web.listen-address=\":{{ node_exp_port }}\" \
+             --web.listen-address=\"{{ node_exp_address }}:{{ node_exp_port }}\" \
              --web.telemetry-path=\"{{ node_exp_webpath }}\" \
              {{ node_exp_disable_exporter_metrics | bool | ternary('--web.disable-exporter-metrics', '') }} \
              {{ node_exp_exclude_collectors | map('regex_replace', '^(.*)$', '--no-collector.\\1') | join(' ') }} \
